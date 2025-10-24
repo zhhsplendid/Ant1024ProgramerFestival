@@ -2,20 +2,182 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>🐜✨ 1024 · 蚁码生花 · 我爱蚂蚁！</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🐜💻 1024 程序员节 · 我爱蚂蚁！</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;500;700;800&family=Noto+Sans+SC:wght@300;700;900&display=swap');
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      background: radial-gradient(1200px 800px at 20% -10%, #1a1a2e 0%, #0f0f1a 45%, #000 100%);
-      color: #e6f7ff;
-      font-family: 'JetBrains Mono', 'Noto Sans SC', monospace;
-      min-height: 100vh;
-      overflow-x: hidden;
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;700&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    /* 动态二进制雨背景 */
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      background: radial-gradient(1200px 800px at 20% -10%, #ff6ec7 0%, #7873f5 40%, #00a4ff 70%, #001524 100%);
+      font-family: 'JetBrains Mono', 'Orbitron', monospace;
+      color: #e0f7ff;
+      perspective: 1200px;
+    }
+
+    /* 粒子背景容器 */
+    #particles-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* 主容器 */
+    .container {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      filter: drop-shadow(0 0 15px rgba(0, 255, 200, 0.4));
+    }
+
+    /* 3D 动态标题 */
+    .title-3d {
+      font-size: clamp(2.5rem, 12vw, 9rem);
+      font-weight: 900;
+      font-family: 'Orbitron', monospace;
+      letter-spacing: 0.2em;
+      transform-style: preserve-3d;
+      animation: float3D 6s ease-in-out infinite;
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, #ffd700, #ff4d94, #00e5ff, #7c4dff, #ffd700);
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 30px rgba(255, 77, 148, 0.7);
+    }
+
+    @keyframes float3D {
+      0%, 100% { transform: translateY(0px) rotateX(0deg) rotateY(-5deg); }
+      50% { transform: translateY(-25px) rotateX(5deg) rotateY(5deg); }
+    }
+
+    /* 副标题 - 代码风格 */
+    .subtitle {
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: #c2f0ff;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    /* 核心宣言：带脉冲光效 */
+    .love-message {
+      font-size: clamp(1.8rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: #00ffd5;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin: 2rem 0;
+      animation: pulseGlow 2.5s infinite alternate;
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+
+    .love-message:hover {
+      transform: scale(1.08) rotateZ(2deg);
+      text-shadow: 0 0 40px #ff4d94, 0 0 80px #ff4d94;
+    }
+
+    @keyframes pulseGlow {
+      0% { 
+        text-shadow: 0 0 20px #00ffd5, 0 0 40px rgba(0, 255, 213, 0.4);
+        filter: hue-rotate(0deg);
+      }
+      100% { 
+        text-shadow: 0 0 45px #ff4d94, 0 0 90px rgba(255, 77, 148, 0.6);
+        filter: hue-rotate(20deg);
+      }
+    }
+
+    /* 蚂蚁图标 - 动态绘制 */
+    .ant-logo {
+      width: 220px;
+      height: 220px;
+      margin: 2rem auto;
+      position: relative;
+      filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.6));
+      animation: antFloat 4s cubic-bezier(0.3, 0.8, 0.5, 1.2) infinite;
+    }
+
+    .ant-body {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 160px;
+      height: 90px;
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      border-radius: 50px 50px 20px 20px;
+      transform: translate(-50%, -50%);
+      box-shadow: 
+        0 0 40px rgba(0, 198, 255, 0.6),
+        inset 0 -20px 40px rgba(255, 255, 255, 0.2);
+    }
+
+    .ant-head {
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      width: 70px;
+      height: 70px;
+      background: radial-gradient(circle at 30% 30%, #ffd700, #ff8c00);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 30px rgba(255, 140, 0, 0.7);
+    }
+
+    .ant-leg {
+      position: absolute;
+      bottom: -10px;
+      width: 6px;
+      height: 40px;
+      background: linear-gradient(to top, #00c6ff, transparent);
+      border-radius: 3px;
+    }
+    .ant-leg:nth-child(3) { left: 25%; animation: legMove 0.8s infinite; }
+    .ant-leg:nth-child(4) { left: 35%; animation: legMove 0.8s infinite 0.1s; }
+    .ant-leg:nth-child(5) { right: 35%; animation: legMove 0.8s infinite 0.2s; }
+    .ant-leg:nth-child(6) { right: 25%; animation: legMove 0.8s infinite 0.3s; }
+
+    @keyframes legMove {
+      0%, 100% { height: 40px; opacity: 1; }
+      50% { height: 55px; opacity: 0.7; }
+    }
+
+    @keyframes antFloat {
+      0%, 100% { transform: translate(-50%, -50%) translateY(0px) rotate(0deg); }
+      50% { transform: translate(-50%, -50%) translateY(-15px) rotate(2deg); }
+    }
+
+    /* 日期徽章 */
+    .date-badge {
+      background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 12px 28px;
+      border-radius: 999px;
+      backdrop-filter: blur(10px);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #fff;
+      margin: 1rem 0 3rem;
+      box-shadow: 0 8px 32px rgba(0, 100, 255, 0.2);
+    }
+
+    /* 二进制雨帘效果 */
     .binary-rain {
       position: fixed;
       top: 0;
@@ -26,284 +188,285 @@
       z-index: -1;
       opacity: 0.15;
     }
-    .binary-rain::before {
-      content: "01010100 01101000 01101001 01110011 00100000 01101001 01110011 00100000 01000110 01110101 01101110 00100001 20241024";
+
+    .binary-column {
       position: absolute;
-      top: -10em;
-      white-space: nowrap;
-      font-size: 1.2rem;
-      animation: fall 20s linear infinite;
-      color: #00d4ff;
-    }
-    .binary-rain::after {
-      content: "🐜💻🐜💻🐜❤️🐜💻🐜💻🐜";
-      position: absolute;
-      top: -10em;
-      left: 20%;
-      white-space: nowrap;
-      font-size: 1.5rem;
-      animation: fall 18s linear infinite reverse;
-      color: #ff6b9d;
-    }
-    @keyframes fall {
-      to { transform: translateY(100vh); }
-    }
-
-    /* 主容器 */
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 2rem;
-      position: relative;
-    }
-
-    /* 蚂蚁Logo（爱心+科技粒子） */
-    .logo {
-      width: 220px;
-      height: 220px;
-      position: relative;
-      margin-bottom: 2rem;
-      filter: drop-shadow(0 0 30px rgba(255, 107, 157, 0.7));
-    }
-    .ant-heart {
-      width: 100%;
-      height: 100%;
-      background: conic-gradient(from 0deg, #ff6b9d, #00d4ff, #9cff6b, #ffd166, #ff6b9d);
-      clip-path: path('M120 30C90 10 50 15 30 40S5 90 35 115C20 135 45 160 65 180S100 205 120 205 175 180 195 160 225 135 210 115 245 90 220 40 180 10 150 30 120 30Z');
-      animation: heartbeat 3s ease-in-out infinite;
-      position: relative;
-    }
-    .ant-heart::after {
-      content: "🐜";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 5rem;
-      filter: drop-shadow(0 0 8px rgba(255,255,255,0.9));
-    }
-    @keyframes heartbeat {
-      0%, 100% { transform: scale(1); }
-      15% { transform: scale(1.05); }
-      30% { transform: scale(0.98); }
-      50% { transform: scale(1.08) rotate(2deg); }
-    }
-
-    /* 主标题 */
-    h1 {
-      font-size: clamp(2.5rem, 8vw, 5rem);
-      background: linear-gradient(90deg, #ff6b9d, #00d4ff, #9cff6b, #ffd166, #ff6b9d);
-      background-size: 300% 100%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-fill-color: transparent;
-      animation: shimmer 4s ease-in-out infinite;
-      margin-bottom: 1rem;
-      text-align: center;
-      letter-spacing: 2px;
-    }
-    @keyframes shimmer {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    /* 副标题 */
-    .subtitle {
-      font-size: 1.5rem;
-      color: #b3e5ff;
-      margin-bottom: 3rem;
-      text-align: center;
-      opacity: 0.9;
-    }
-
-    /* 浮动代码块 */
-    .code-float {
-      position: absolute;
-      font-size: 0.9rem;
-      color: #a8ff78;
-      background: rgba(10, 20, 40, 0.4);
-      border: 1px solid rgba(0, 212, 255, 0.3);
-      border-radius: 8px;
-      padding: 0.8rem 1.2rem;
-      backdrop-filter: blur(4px);
-      box-shadow: 0 4px 30px rgba(0, 212, 255, 0.15);
-      animation: float 6s ease-in-out infinite;
+      top: -100px;
+      color: #00ffb3;
       font-family: 'JetBrains Mono', monospace;
-    }
-    .code-float:nth-child(odd) { animation-delay: -2s; color: #ffd166; }
-    .code-float:nth-child(even) { animation-delay: -4s; color: #ff6b9d; }
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-20px) rotate(2deg); }
+      font-size: 16px;
+      animation: fall linear infinite;
     }
 
-    /* 核心宣言 */
-    .love-statement {
-      font-size: 3.5rem;
-      font-weight: 900;
-      text-align: center;
-      margin: 2rem 0;
-      background: linear-gradient(45deg, #ff0a54, #ff6b9d, #ffd166, #9cff6b, #00d4ff);
-      background-size: 400% 400%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradientShift 5s ease infinite;
-      position: relative;
-      filter: drop-shadow(0 0 15px rgba(255, 107, 157, 0.6));
-    }
-    .love-statement::after {
-      content: "❤️🐜";
-      position: absolute;
-      right: -60px;
-      top: -10px;
-      font-size: 2.5rem;
-      animation: pulse 1.5s ease-in-out infinite alternate;
-    }
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    @keyframes pulse {
-      from { transform: scale(1); opacity: 0.7; }
-      to { transform: scale(1.25); opacity: 1; }
+    @keyframes fall {
+      to { transform: translateY(110vh); }
     }
 
-    /* 程序员节彩蛋：1024 二进制花束 */
-    .binary-bouquet {
+    /* 交互按钮组 */
+    .controls {
       display: flex;
-      gap: 1.5rem;
+      gap: 18px;
+      margin-top: 2rem;
       flex-wrap: wrap;
       justify-content: center;
-      margin: 3rem 0;
-    }
-    .bit-flower {
-      width: 80px;
-      height: 80px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #00d4ff, transparent 60%),
-                  radial-gradient(circle at 70% 70%, #ff6b9d, transparent 60%),
-                  rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      font-size: 2rem;
-      font-weight: 900;
-      color: #fff;
-      text-shadow: 0 0 10px currentColor;
-      animation: bloom 8s ease-in-out infinite;
-    }
-    .bit-flower:nth-child(1) { animation-delay: 0s; }
-    .bit-flower:nth-child(2) { animation-delay: 1s; }
-    .bit-flower:nth-child(3) { animation-delay: 2s; }
-    .bit-flower:nth-child(4) { animation-delay: 3s; }
-    .bit-flower:nth-child(5) { animation-delay: 4s; }
-    @keyframes bloom {
-      0%, 80% { transform: scale(0.6); opacity: 0.6; }
-      90% { transform: scale(1.15); opacity: 1; }
-      100% { transform: scale(1); }
     }
 
-    /* 底部宣言 */
-    .footer-note {
-      margin-top: 4rem;
-      font-size: 1.1rem;
-      color: #99c2ff;
-      text-align: center;
-      max-width: 800px;
-      line-height: 1.8;
-      border-top: 1px solid rgba(0, 212, 255, 0.2);
-      padding-top: 2rem;
-    }
-    .highlight {
-      color: #ffd166;
+    .btn {
+      background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #e6fffb;
+      padding: 12px 24px;
+      border-radius: 14px;
+      font-family: 'JetBrains Mono', monospace;
       font-weight: 700;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(8px);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 10px 30px rgba(0, 255, 200, 0.25);
+      border-color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* 底部彩蛋 */
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      width: 100%;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.6);
+      text-shadow: 0 0 10px rgba(0, 200, 255, 0.5);
     }
 
     /* 响应式 */
     @media (max-width: 768px) {
-      .code-float { font-size: 0.7rem; padding: 0.5rem 0.8rem; }
-      .love-statement { font-size: 2.5rem; }
-      .bit-flower { width: 60px; height: 60px; font-size: 1.5rem; }
+      .title-3d { letter-spacing: 0.05em; }
+      .subtitle { font-size: 1.2rem; }
+      .ant-logo { width: 160px; height: 160px; }
+      .ant-body { width: 120px; height: 65px; }
+      .ant-head { width: 50px; height: 50px; }
     }
   </style>
 </head>
 <body>
-  <!-- 动态背景 -->
-  <div class="binary-rain"></div>
-  <div class="binary-rain" style="left: 10%; animation-duration: 25s;"></div>
+  <!-- 动态二进制雨 -->
+  <div class="binary-rain" id="binaryRain"></div>
 
-  <div class="container">
-    <!-- 浮动的代码片段 -->
-    <div class="code-float" style="top: 15%; left: 5%;">git commit -m "Love Ants 🐜❤️"</div>
-    <div class="code-float" style="top: 25%; right: 8%;">console.log("1024 === 0b10000000000")</div>
-    <div class="code-float" style="bottom: 30%; left: 10%;">while(alive) { build(beautiful.world); }</div>
-    <div class="code-float" style="bottom: 20%; right: 12%;">return new Future(() => ❤️.antGroup)</div>
+  <!-- 粒子背景 -->
+  <canvas id="particles-canvas"></canvas>
 
-    <!-- Logo -->
-    <div class="logo">
-      <div class="ant-heart"></div>
+  <main class="container">
+    <!-- 3D 发光标题 -->
+    <h1 class="title-3d">1024</h1>
+    
+    <!-- 副标题 -->
+    <p class="subtitle">
+      <span style="color:#ffd54f">Oct 24</span> · 
+      <span style="color:#ffab91">Code the Future</span> · 
+      <span style="color:#80deea">Ant Group</span>
+    </p>
+
+    <!-- 动态蚂蚁图标 -->
+    <div class="ant-logo">
+      <div class="ant-head"></div>
+      <div class="ant-body"></div>
+      <div class="ant-leg"></div>
+      <div class="ant-leg"></div>
+      <div class="ant-leg"></div>
+      <div class="ant-leg"></div>
     </div>
 
-    <!-- 主标题 -->
-    <h1>蚁码生花 · 1024</h1>
-    <p class="subtitle">—— 以代码为诗，以热爱为光 ——</p>
-
-    <!-- 核心表白 -->
-    <div class="love-statement">
-      我 爱 蚂 蚁
+    <!-- 核心宣言 -->
+    <div class="love-message" onclick="sparkleExplosion(event)">
+      我爱蚂蚁！ ❤️🐜
     </div>
 
-    <!-- 1024 二进制花束 -->
-    <div class="binary-bouquet">
-      <div class="bit-flower">1</div>
-      <div class="bit-flower">0</div>
-      <div class="bit-flower">2</div>
-      <div class="bit-flower">4</div>
-      <div class="bit-flower">🐜</div>
+    <!-- 日期徽章 -->
+    <div class="date-badge">
+      程序员节快乐 · 每一行代码都是诗
     </div>
 
-    <!-- 诗意说明 -->
-    <div class="footer-note">
-      在每一个 <span class="highlight">1024</span>，我们不止纪念二进制的优雅，  
-      更致敬用逻辑编织梦想的蚁人。  
-      你是世界的 <code>0x1F41B</code>（蚂蚁 Unicode），  
-      是深夜屏幕的微光，是千万行代码背后的温柔与坚韧。  
-      <br/><br/>
-      <strong>愿代码如藤蔓生长，愿热爱如星辰不灭。</strong><br/>
-      <em>—— 1024 · 蚂蚁程序员 · 2025</em>
+    <!-- 互动按钮 -->
+    <div class="controls">
+      <button class="btn" onclick="toggleBinaryRain()">🎲 切换代码雨</button>
+      <button class="btn" onclick="launchConfetti()">🎉 撒花庆祝</button>
+      <button class="btn" onclick="showAntLove()">🔍 查看蚂蚁之心</button>
     </div>
-  </div>
+  </main>
 
-  <!-- 彩蛋：点击爱心生成蚂蚁 -->
+  <footer class="footer">
+    蚂蚁集团 · 1024 程序员节 · 2025 数字庆典
+  </footer>
+
+  <!-- 引入粒子引擎与彩蛋库 -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.0/dist/tsparticles.min.js"></script>
+
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const container = document.querySelector('.container');
-      const logo = document.querySelector('.logo');
-      
-      logo.addEventListener('click', () => {
-        for (let i = 0; i < 20; i++) {
-          setTimeout(() => {
-            const ant = document.createElement('div');
-            ant.innerHTML = '🐜';
-            ant.style.position = 'fixed';
-            ant.style.left = Math.random() * 100 + 'vw';
-            ant.style.top = Math.random() * 100 + 'vh';
-            ant.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
-            ant.style.pointerEvents = 'none';
-            ant.style.zIndex = '1000';
-            ant.style.animation = `float ${3 + Math.random() * 5}s linear infinite`;
-            document.body.appendChild(ant);
-            setTimeout(() => ant.remove(), 8000);
-          }, i * 100);
+    // 初始化粒子系统
+    tsParticles.load("particles-canvas", {
+      background: { color: "transparent" },
+      particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: ["#00e5ff", "#ff4d94", "#ffd700", "#7c4dff"] },
+        shape: { type: ["circle", "edge", "triangle", "polygon"] },
+        opacity: { value: 0.7, random: true },
+        size: { value: 3, random: true },
+        line_linked: {
+          enable: true,
+          distance: 180,
+          color: "#ffffff",
+          opacity: 0.2,
+          width: 1
+        },
+        move: {
+          enable: true,
+          speed: 1.5,
+          direction: "none",
+          random: true,
+          straight: false,
+          out_mode: "out",
+          bounce: false
         }
+      },
+      interactivity: {
+        events: {
+          onHover: { enable: true, mode: "grab" },
+          onClick: { enable: true, mode: "push" }
+        },
+        modes: {
+          grab: { distance: 200, line_linked: { opacity: 0.5 } }
+        }
+      },
+      retina_detect: true
+    });
+
+    // 生成二进制雨
+    function initBinaryRain() {
+      const container = document.getElementById('binaryRain');
+      const columns = Math.floor(window.innerWidth / 30);
+      
+      for (let i = 0; i < columns; i++) {
+        const col = document.createElement('div');
+        col.className = 'binary-column';
+        col.style.left = `${i * 30}px`;
+        col.style.animationDuration = `${(Math.random() * 3 + 2)}s`;
+        col.style.animationDelay = `${Math.random() * -5}s`;
+        
+        let str = '';
+        for (let j = 0; j < 30; j++) {
+          str += Math.random() > 0.5 ? '1' : '0';
+          str += '<br>';
+        }
+        col.innerHTML = str;
+        container.appendChild(col);
+      }
+    }
+
+    let rainVisible = true;
+    function toggleBinaryRain() {
+      const rain = document.getElementById('binaryRain');
+      rainVisible = !rainVisible;
+      rain.style.opacity = rainVisible ? '0.15' : '0';
+    }
+
+    // 彩蛋：点击爱心触发粒子爆炸
+    function sparkleExplosion(e) {
+      const x = e.clientX / window.innerWidth;
+      const y = e.clientY / window.innerHeight;
+      
+      confetti({
+        particleCount: 120,
+        spread: 90,
+        origin: { x, y },
+        colors: ['#ff4d94', '#00e5ff', '#ffd700', '#7c4dff', '#ffffff'],
+        shapes: ["circle", "square", "triangle"],
+        scalar: 1.2
       });
+
+      // 心跳脉冲
+      const el = e.currentTarget;
+      el.style.animation = 'none';
+      setTimeout(() => el.style.animation = 'pulseGlow 0.6s 3', 10);
+    }
+
+    // 彩蛋：撒花
+    function launchConfetti() {
+      const duration = 3 * 1000;
+      const end = Date.now() + duration;
+
+      (function frame() {
+        confetti({
+          particleCount: 7,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: ['#ff6ec7', '#7873f5', '#00a4ff']
+        });
+        confetti({
+          particleCount: 7,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: ['#ffd700', '#ff4d94', '#00e5ff']
+        });
+
+        if (Date.now() < end) requestAnimationFrame(frame);
+      }());
+    }
+
+    // 显示隐藏彩蛋：蚂蚁之心
+    function showAntLove() {
+      const heart = document.createElement('div');
+      heart.innerHTML = `
+        <div style="
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 4rem;
+          z-index: 9999;
+          animation: heartPop 1.5s ease-out forwards;
+        ">
+          🐜💖🐜
+        </div>
+      `;
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 2000);
+    }
+
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes heartPop {
+        0% { transform: translate(-50%, -50%) scale(0.2) rotate(0deg); opacity: 0; }
+        70% { transform: translate(-50%, -50%) scale(1.3) rotate(5deg); opacity: 1; }
+        100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // 启动
+    window.addEventListener('load', () => {
+      initBinaryRain();
+      // 背景音乐（可选，用户交互触发）
+      document.addEventListener('click', () => {
+        if (!window._antMusicPlayed) {
+          window._antMusicPlayed = true;
+          const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-tech-interface-start-2574.mp3');
+          audio.volume = 0.3;
+          audio.play().catch(() => {});
+        }
+      }, { once: true });
+    });
+
+    // 窗口缩放重绘二进制雨
+    window.addEventListener('resize', () => {
+      document.getElementById('binaryRain').innerHTML = '';
+      initBinaryRain();
     });
   </script>
 </body>
