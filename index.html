@@ -452,15 +452,6 @@
     // 启动
     window.addEventListener('load', () => {
       initBinaryRain();
-      // 背景音乐（可选，用户交互触发）
-      document.addEventListener('click', () => {
-        if (!window._antMusicPlayed) {
-          window._antMusicPlayed = true;
-          const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-tech-interface-start-2574.mp3');
-          audio.volume = 0.3;
-          audio.play().catch(() => {});
-        }
-      }, { once: true });
     });
 
     // 窗口缩放重绘二进制雨
